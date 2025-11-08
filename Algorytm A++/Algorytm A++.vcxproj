@@ -131,6 +131,7 @@
     <ClCompile Include="Algorytm A++.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Astar.hpp" />
     <ClInclude Include="Graph.hpp" />
   </ItemGroup>
   <ItemGroup>
