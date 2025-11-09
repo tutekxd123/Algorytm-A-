@@ -20,10 +20,10 @@ public:
 struct Edge {
 public:
     int idMapConnect = 0;
-    Point* Grid1Point = nullptr;
-    Point* Grid2Point = nullptr;
-    Edge(int idMapConnect, Point* Grid1Point, Point* Grid2Point) : idMapConnect(idMapConnect), Grid1Point(Grid1Point), Grid2Point(Grid2Point) {};
-	Edge() : idMapConnect(0), Grid1Point(nullptr), Grid2Point(nullptr) {};
+    Point Grid1Point;
+    Point Grid2Point;
+    Edge(int idMapConnect, Point& Grid1Point, Point& Grid2Point) : idMapConnect(idMapConnect), Grid1Point(Grid1Point), Grid2Point(Grid2Point) {};
+	Edge() : idMapConnect(0), Grid1Point(), Grid2Point() {};
 };
 
 class Grid {
@@ -35,6 +35,9 @@ public:
     uint8_t height = 0;
     Grid(int id, int width, int height) : id(id), width(width), height(height) {}
 	Grid() : id(0), width(1), height(1) {}
+    const Point& getPoint(int x, int y) const{
+        return points[(x * height) + y];
+    }
 };
 
 
