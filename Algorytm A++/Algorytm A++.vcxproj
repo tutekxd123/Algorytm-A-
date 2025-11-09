@@ -128,11 +128,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Algorytm A++.cpp" />
+    <ClCompile Include="A++.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="testsUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="A++.hpp" />
     <ClInclude Include="Astar.hpp" />
     <ClInclude Include="Graph.hpp" />
+    <ClInclude Include="testsUnit.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
