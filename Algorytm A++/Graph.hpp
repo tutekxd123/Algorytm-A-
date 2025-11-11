@@ -14,6 +14,9 @@ public:
         return std::format("{},{}", this->x, this->y);
     }
     Point() : x(0), y(0), collision(false) {};
+    bool operator==(const Point& otherpoint) const {
+        return this->x == otherpoint.x && this->y == otherpoint.y;
+    }
 };
 
 

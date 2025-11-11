@@ -2,7 +2,7 @@
 #include "Graph.hpp"
 #include "Astar.hpp"
 #include "testsUnit.hpp"
-
+#include "A++.hpp"
 int main()
 {
 #ifdef _DEBUG

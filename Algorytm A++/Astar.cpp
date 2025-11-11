@@ -1,7 +1,7 @@
 #include "Astar.hpp"
 #pragma once
 
-	double AstarGrid::getHeuristic(const AstarNode& start, const Point& target) const {
+	double AstarGrid::getHeuristic(const AstarNode& start, const Point& target) {
 		//Manhattan Distance
 		return abs(start.node->x - target.x) + abs(target.y - start.node->y);
 	}

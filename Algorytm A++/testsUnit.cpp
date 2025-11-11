@@ -49,5 +49,6 @@ bool testsUnit::testAstarSingleGrid()
 	else {
 		std::cout << "Test A* Single Grid Passed! nr.3 no possible path \n";
 	}
+	auto test4 = AstarPlusPlus::getWay(graphtest, 0, Point(0, 0), 1);
 	return true;
 }
