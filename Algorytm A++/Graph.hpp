@@ -47,6 +47,7 @@ public:
                 return edge;
             }
         }
+        return Edge();
     }
 };
 

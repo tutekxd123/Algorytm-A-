@@ -29,7 +29,7 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 		ClosedSet.insert(current);
 		Openset.erase(current);
 		if (current->grid->id == GrupaWezlowCel) {
-			return ReconstructPath(graph, current, StartPoint);
+			return ReconstructPath(graph, current);
 		}
 		std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> neighbours = getNeighbors(allNodes, current, graph);
 		for (auto& [neigh,dystans,newPoint] : neighbours) {
@@ -83,11 +83,11 @@ std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNei
 }
 
 
-std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPlusNode* currentNode, const Point& StartPoint) //Kopia CurrentNode celowa
+std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPlusNode* currentNode) //Kopia CurrentNode celowa
 {
 
 	std::vector<Point>Wynik;
-	int lastconnected;
+	int lastconnected = 0;
 	while (currentNode->parent != nullptr) {
 		//musimy przeczytac z edge! znowu
 		Point targetpoint = currentNode->grid->getEdge(currentNode->parent->grid->id).Grid1Point;

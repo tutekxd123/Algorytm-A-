@@ -47,5 +47,5 @@ class AstarPlusPlus {
 public:
 	static std::vector<Point> getWay(const Graph& graph, int GrupaWezlowCel, const Point& StartPoint, int GrupaWezlowStart);
 	static std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> getNeighbors( std::vector<AstarPlusPlusNode>&AllNodes,const AstarPlusPlusNode* currentNode, const Graph& graph);
-	static std::vector<Point> ReconstructPath(const Graph graph, AstarPlusPlusNode* currentNode, const Point& StartPoint);
+	static std::vector<Point> ReconstructPath(const Graph graph, AstarPlusPlusNode* currentNode);
 };
