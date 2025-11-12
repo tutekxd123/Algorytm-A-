@@ -3,6 +3,8 @@
 bool testsUnit::testAstarSingleGrid()
 {
 	Graph graphtest{};
+	Graph morecomplex{};
+
 	AstarGrid astar{};
 	//Pierwsze co to trzeba wczytanie jsona zrobic "Glaze" i napisaæ struktury danych w sumie moge skopiwaæ z poprzedniego projektu
 	auto ec = glz::read_file_json(graphtest, "./tests.json", std::string{});
@@ -49,6 +51,15 @@ bool testsUnit::testAstarSingleGrid()
 	else {
 		std::cout << "Test A* Single Grid Passed! nr.3 no possible path \n";
 	}
-	auto test4 = AstarPlusPlus::getWay(graphtest, 0, Point(0, 0), 1);
+	
+	auto ec2 = glz::read_file_json(morecomplex,"./testsmorecomplex.json", std::string{});
+
 	return true;
+}
+
+void testsUnit::testBenchmark()
+{
+	Graph benchmark{};
+	auto ec3 = glz::read_file_json(benchmark, "./benchmarktest.json", std::string{});
+	AstarPlusPlus::getWay(benchmark, 300, Point(0, 0), 0);
 }

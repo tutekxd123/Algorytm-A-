@@ -14,6 +14,7 @@ int main()
 		std::cout << "TESTS FAILED!\n";
 		return 1;
 	}
+	testsUnit::testBenchmark();
 #endif // DEBUG
 
 

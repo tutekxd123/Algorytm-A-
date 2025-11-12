@@ -6,4 +6,5 @@
 class testsUnit {
 public:
 	static bool testAstarSingleGrid();
+	static void testBenchmark();
 };

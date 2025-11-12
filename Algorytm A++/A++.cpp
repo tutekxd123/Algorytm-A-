@@ -91,7 +91,7 @@ std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPl
 	while (currentNode->parent != nullptr) {
 		//musimy przeczytac z edge! znowu
 		Point targetpoint = currentNode->grid->getEdge(currentNode->parent->grid->id).Grid1Point;
-
+		std::cout << currentNode->grid->id<<std::endl;
 		auto droga = AstarGrid::GetWay(*currentNode->grid, currentNode->point, targetpoint);
 		for (auto& node : droga) {
 			Wynik.emplace_back(node);
