@@ -1,7 +1,8 @@
 #include "Graph.hpp"
 #include <unordered_set>
 #include <set>
-
+#include "Utility.hpp"
+#include "MiniHeap.hpp"
 #pragma once
 class AstarNode {
 public:
@@ -14,6 +15,9 @@ public:
 		return this->node->x == othernode.node->x && this->node->y == othernode.node->y;
 	};
 	bool operator<(const AstarNode& othernode) const {
+		return this->fscore < othernode.fscore;
+	};
+	bool operator>(const AstarNode& othernode) const {
 		return this->fscore > othernode.fscore;
 	};
 	void operator=(const Point& point) {
@@ -41,14 +45,21 @@ struct ComparatorAstarNode {
 		return a->fscore < b->fscore;
 	}
 };
+struct HasherAstarNodePTR {
+	size_t operator()(const AstarNode* point) const
+	{
+		return std::hash<int>()(point->node->x) ^ std::hash<int>()(point->node->y)<<1;
+	}
+};
+
 //Comparator musi zapewniac unikalnac wiec jezeli fscore jest te samo to go nie wstawi
 //Dodam
 class AstarGrid {
 public:
 	int lengthoperations = 0;
-	static double getHeuristic(const AstarNode& start, const Point& target);
-	static std::vector<Point> reconstructPath(const AstarNode* node, int sizegrid);
-	static std::vector<AstarNode*> getNeighbours(std::vector<AstarNode>& grid, const AstarNode* pointnode, int maxheight, int maxwidth);
-	static AstarNode& getNode(int x, int y, int maxheight, std::vector<AstarNode>& nodes);
-	static std::vector<Point> GetWay(const Grid& grid, const Point& start, const Point& target);
+	double getHeuristic(const AstarNode& start, const Point& target);
+	std::vector<Point> reconstructPath(const AstarNode* node, int sizegrid);
+	std::vector<AstarNode*> getNeighbours(std::vector<AstarNode>& grid, const AstarNode* pointnode, int maxheight, int maxwidth);
+	AstarNode& getNode(int x, int y, int maxheight, std::vector<AstarNode>& nodes);
+	std::vector<Point> GetWay(const Grid& grid, const Point& start, const Point& target);
 };

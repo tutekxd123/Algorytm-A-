@@ -41,8 +41,9 @@ public:
     const Point& getPoint(int x, int y) const{
         return points[(x * height) + y];
     }
-    const Edge getEdge(int mapidconnect) const{
+    const Edge getEdge(int mapidconnect,int& lengthoperations) const{
         for(auto& edge: Edges){
+            lengthoperations += 2;
             if (edge.idMapConnect == mapidconnect) {
                 return edge;
             }

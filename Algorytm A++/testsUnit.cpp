@@ -61,6 +61,6 @@ void testsUnit::testBenchmark()
 	Graph benchmark{};
 	auto ec3 = glz::read_file_json(benchmark, "./benchmarktest.json", std::string{});
 
-
-	AstarPlusPlus::getWay(benchmark, 300, Point(0, 0), 0);
+	auto obj = AstarPlusPlus();
+	obj.getWay(benchmark, 300, Point(0, 0), 0);
 }

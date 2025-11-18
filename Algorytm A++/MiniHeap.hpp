@@ -23,7 +23,6 @@ private:
 	HeapItem* arr;
 	int capacity;
 	int totalItems;
-	int lengthoperations = 0;
 	std::unordered_set<v,hash> setsofitems;
 	std::unordered_map<v, int, hash> valueToIndex;
 
@@ -80,6 +79,7 @@ private:
 	}
 	void swapItems(int index1, int index2) {
 		this->valueToIndex[this->arr[index1].value] = index2;
+		this->valueToIndex[this->arr[index2].value] = index1;
 		std::swap(this->arr[index1], this->arr[index2]);
 		this->lengthoperations += 5; //Swap = 3;
 	}
@@ -119,6 +119,7 @@ private:
 	}
 
 public:
+	int lengthoperations = 0;
 	MinHeap()
 	{
 		this->arr = nullptr;
@@ -202,6 +203,7 @@ public:
 		//Sortujemy po key wiec ma to sens
 		//Jezeli klucz zmalal? to przesuwamy w gore
 		this->lengthoperations += 5;
+
 		if (newKey < oldKey) {
 			shiftUp(index);
 		}

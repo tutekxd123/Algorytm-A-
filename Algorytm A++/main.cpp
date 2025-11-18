@@ -3,6 +3,7 @@
 #include "Astar.hpp"
 #include "testsUnit.hpp"
 #include "A++.hpp"
+#include "Utility.hpp"
 int main()
 {
 #ifdef _DEBUG
@@ -16,6 +17,8 @@ int main()
 	}
 	testsUnit::testBenchmark();
 #endif // DEBUG
+	std::vector<int> test = { 1,2,3,4,5 };
+	reverse(test.begin(), test.end());
 
 
 	return 0;
