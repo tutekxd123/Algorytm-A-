@@ -53,7 +53,6 @@ bool testsUnit::testAstarSingleGrid()
 	}
 	
 	auto ec2 = glz::read_file_json(morecomplex,"./testsmorecomplex.json", std::string{});
-
 	return true;
 }
 
@@ -61,5 +60,7 @@ void testsUnit::testBenchmark()
 {
 	Graph benchmark{};
 	auto ec3 = glz::read_file_json(benchmark, "./benchmarktest.json", std::string{});
+
+
 	AstarPlusPlus::getWay(benchmark, 300, Point(0, 0), 0);
 }

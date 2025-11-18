@@ -9,7 +9,9 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 	}
 	//Okay Create Vector?
 	std::vector<AstarPlusPlusNode> allNodes;
-	std::set<AstarPlusPlusNode*, NodePTRComparator>Openset; //Hasher lub comparator! jako kolejka priorytetowa
+	MinHeap<std::tuple<int,Point,int>, AstarPlusPlusNode*, NodeHasherPTR> OpenSet;
+
+	//Zmiana na MiniHeap
 	std::unordered_set<AstarPlusPlusNode*, NodeHasherPTR> ClosedSet;
 	allNodes.reserve(10000);
 	for (const auto& grid : graph.Grids) {
@@ -18,38 +20,44 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 			node.point = StartPoint;
 			node.gCost = 0;
 			allNodes.emplace_back(node);
-			Openset.insert(&allNodes.back());
+			OpenSet.insert(std::make_tuple(node.grid->id, node.point, 0), &allNodes.back());
 		}
 		else {
 			allNodes.emplace_back(&grid);
 		}
 	}
-	while (!Openset.empty()) {
-		AstarPlusPlusNode* current = *Openset.begin();
+	while (!OpenSet.isEmpty()) {
+		//AstarPlusPlusNode* current = *Openset.begin();
+		AstarPlusPlusNode* current;
+		OpenSet.getMin(current);
+
 		ClosedSet.insert(current);
-		Openset.erase(current);
+		OpenSet.deleteMin();
 		if (current->grid->id == GrupaWezlowCel) {
 			return ReconstructPath(graph, current);
 		}
 		std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> neighbours = getNeighbors(allNodes, current, graph);
 		for (auto& [neigh,dystans,newPoint] : neighbours) {
 			//para wskazniku i dystansu!
-			if (!Openset.contains(neigh) && !ClosedSet.contains(neigh)) {
+			if (!OpenSet.contains(neigh) && !ClosedSet.contains(neigh)) {
 				{
 					neigh->gCost = current->gCost + dystans;
 					neigh->parent = current;
 					neigh->point = newPoint;
-					Openset.insert(neigh);
+					OpenSet.insert(std::make_tuple(neigh->grid->id,neigh->point,neigh->gCost), neigh);
 					continue;
 				}
 				//Jezeli juz mial w openset to moze jest to lepsze
-				if (Openset.contains(neigh)) {
+				if (OpenSet.contains(neigh)) {
+					//Napisac update func!?
 					int tempgscore = dystans + current->gCost;
 					if (neigh->gCost > tempgscore) {
 						neigh->gCost = tempgscore;
 						neigh->point = newPoint;
 						neigh->parent = current;
 					}
+					OpenSet.update(std::make_tuple(neigh->grid->id, neigh->point, neigh->gCost), neigh);
+					std::cout << "UPDATING DEBUG TEST THAT WORKING PROP\n";
 				}
 
 			}
@@ -100,6 +108,7 @@ std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPl
 		currentNode = currentNode->parent;
 	}
 	//Add last road 
+	std::cout << currentNode->grid->id<<std::endl;
 	Point targetpoint = currentNode->grid->getEdge(lastconnected).Grid1Point;
 	auto droga = AstarGrid::GetWay(*currentNode->grid, currentNode->point,targetpoint);
 

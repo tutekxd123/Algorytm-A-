@@ -3,6 +3,8 @@
 #include "Graph.hpp"
 #include <unordered_set>
 #include "Astar.hpp"
+#include "MiniHeap.hpp"
+
 struct AstarPlusPlusNode {
 	const Grid* grid = nullptr;
 	Point point;
@@ -19,7 +21,24 @@ struct AstarPlusPlusNode {
 	bool operator==(const AstarPlusPlusNode& point) const {
 		return this->grid == point.grid && this->point == point.point;
 	}
+	bool operator>(const AstarPlusPlusNode* otherpoint) const {
+		return this->gCost > otherpoint->gCost;
+	}
+	bool operator<(const AstarPlusPlusNode* otherpoint) const {
+		return this->gCost < otherpoint->gCost;
+	}
+
 };
+
+static bool operator>(const std::tuple<int, Point, int>& a1, const std::tuple<int, Point, int>& a2)
+{
+	return std::get<2>(a1) > std::get<2>(a2);
+}
+
+static bool operator<(const std::tuple<int, Point, int>& a1, const std::tuple<int, Point, int>& a2)
+{
+	return std::get<2>(a1) < std::get<2>(a2);
+}
 struct NodePTRComparator {
 	bool operator()(AstarPlusPlusNode* a, AstarPlusPlusNode* b) const {
 			if (a->gCost == b->gCost) {

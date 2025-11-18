@@ -2,17 +2,25 @@
 #pragma once
 
 	double AstarGrid::getHeuristic(const AstarNode& start, const Point& target) {
+		//this->lengthoperations += 5;
 		//Manhattan Distance
 		return abs(start.node->x - target.x) + abs(target.y - start.node->y);
 	}
-	std::vector<Point> AstarGrid::reconstructPath(const AstarNode* node) {
+	std::vector<Point> AstarGrid::reconstructPath(const AstarNode* node,int sizegrid) {
 		std::vector<Point> result;
+		//Maksymalny wymiar plazczzyzny to 100x100 i podziele na dwa w prrzypadku MAKSYMALNEJ drogi(to trzeba by ustalic? ale na logike mniej wiecej
+		//moze dynamicznie zamiast pisac 100x100?
+		result.reserve(sizegrid / 2);
+		//this->lengthoperations+=2;
 		while (node->parent != nullptr) {
 			result.emplace_back(*node->node);
 			node = node->parent;
+			//this->lengthoperations += 3;
 		}
-		result.emplace_back(*node->node);
+		result.emplace_back(*node->node); //O(1)
+		//this->lengthoperations += 1;
 		std::reverse(result.begin(), result.end());
+		//reverse mozna samemu
 		return result;
 	}
 	std::vector<AstarNode*> AstarGrid::getNeighbours(std::vector<AstarNode>& grid, const AstarNode* pointnode, int maxheight, int maxwidth) {
@@ -62,7 +70,7 @@
 			if (*current == target) {
 				//Found path
 				//Reconstruct path
-				return reconstructPath(current);
+				return reconstructPath(current,(grid.height*grid.width));
 			}
 			std::vector<AstarNode*> neighbors = getNeighbours(gridNode, current, maxheight, maxwidth);
 			for (auto& neigh : neighbors) {

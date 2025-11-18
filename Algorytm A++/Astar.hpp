@@ -45,8 +45,9 @@ struct ComparatorAstarNode {
 //Dodam
 class AstarGrid {
 public:
+	int lengthoperations = 0;
 	static double getHeuristic(const AstarNode& start, const Point& target);
-	static std::vector<Point> reconstructPath(const AstarNode* node);
+	static std::vector<Point> reconstructPath(const AstarNode* node, int sizegrid);
 	static std::vector<AstarNode*> getNeighbours(std::vector<AstarNode>& grid, const AstarNode* pointnode, int maxheight, int maxwidth);
 	static AstarNode& getNode(int x, int y, int maxheight, std::vector<AstarNode>& nodes);
 	static std::vector<Point> GetWay(const Grid& grid, const Point& start, const Point& target);

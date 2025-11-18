@@ -137,7 +137,9 @@
     <ClInclude Include="A++.hpp" />
     <ClInclude Include="Astar.hpp" />
     <ClInclude Include="Graph.hpp" />
+    <ClInclude Include="MiniHeap.hpp" />
     <ClInclude Include="testsUnit.hpp" />
+    <ClInclude Include="Utility.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
