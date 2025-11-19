@@ -29,17 +29,45 @@ std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNei
 }
 
 
-std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPlusNode* currentNode) //Kopia CurrentNode celowa
+std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph& graph, AstarPlusPlusNode* currentNode) {
+	std::vector<Point>Wynik;
+	std::vector<int>Grupy;
+	AstarGrid AstarObj = AstarGrid();
+	int lastconnected = 0;
+	this->lengthoperations += 3;
+	while (currentNode->parent != nullptr) {
+		Grupy.emplace_back(currentNode->grid->id);
+		currentNode = currentNode->parent;
+	}
+	Grupy.emplace_back(currentNode->grid->id);
+	Utility::reverse(&Grupy[0], &Grupy[0] + Grupy.size());
+	Point CurrentPoint = currentNode->point; //startNode
+	for (int i = 0; i < Grupy.size()-1; i++) {
+		Edge edge = graph.Grids[Grupy[i]].getEdge(Grupy[i + 1], this->lengthoperations);
+		Point targetPoint = edge.Grid1Point;
+		auto droga = AstarObj.GetWay(graph.Grids[Grupy[i]], CurrentPoint, targetPoint);
+		for (const auto& node : droga) {
+			Wynik.emplace_back(node);
+		}
+		CurrentPoint = edge.Grid2Point;
+	}
+	return Wynik;
+}
+
+/*
+std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph& graph, AstarPlusPlusNode* currentNode) //Kopia CurrentNode celowa
 {
 
 	std::vector<Point>Wynik;
 	AstarGrid AstarObj = AstarGrid();
 	int lastconnected = 0;
 	this->lengthoperations += 3;
+	std::vector<int>ConnectedMap;
+	
 	while (currentNode->parent != nullptr) {
 		//musimy przeczytac z edge! znowu
 		Point targetpoint = currentNode->grid->getEdge(currentNode->parent->grid->id,this->lengthoperations).Grid1Point;
-		//std::cout << currentNode->grid->id<<std::endl;
+		std::cout << currentNode->grid->id<<std::endl;
 		auto droga = AstarObj.GetWay(*currentNode->grid, currentNode->point, targetpoint);
 		this->lengthoperations += AstarObj.lengthoperations;
 		this->lengthoperations += 2;
@@ -64,7 +92,7 @@ std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPl
 	this->lengthoperations += Utility::reverse(&Wynik[0], &Wynik[0] + Wynik.size()) + 1;
 	return Wynik;
 }
-
+*/
 std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel, const Point& StartPoint, int GrupaWezlowStart)
 {
 	//Zmiana podejscia robimy Graph konwersje na NodeAstarPlusPlus zeby latwiej zarz¹dzac w reconstruct Path

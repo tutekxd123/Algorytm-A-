@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="A++.cpp" />
+    <ClCompile Include="GeneratorSubplazczyznDebug.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="testsUnit.cpp" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="A++.hpp" />
     <ClInclude Include="Astar.hpp" />
+    <ClInclude Include="GeneratorSubplazczyznDebug.hpp" />
     <ClInclude Include="Graph.hpp" />
     <ClInclude Include="MiniHeap.hpp" />
     <ClInclude Include="testsUnit.hpp" />

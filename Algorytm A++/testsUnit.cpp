@@ -62,5 +62,27 @@ void testsUnit::testBenchmark()
 	auto ec3 = glz::read_file_json(benchmark, "./benchmarktest.json", std::string{});
 
 	auto obj = AstarPlusPlus();
-	obj.getWay(benchmark, 300, Point(0, 0), 0);
+	obj.getWay(benchmark, 8, Point(0, 0), 1);
+}
+
+
+void testsUnit::testBenchmarkMultiple() {
+	for (int maps = 10; maps < 150; maps+=5) {
+		for (int edgesmax = 4; edgesmax < 7; edgesmax++) {
+			for (int sizex = 16; sizex < 32; sizex += 16) {
+				//kwadratowe mapy
+				Graph benchmark = MakeGraph(maps, edgesmax,sizex, sizex, sizex, sizex, 0);
+				size_t sizeofEdges=0;
+				for (auto& grid : benchmark.Grids) {
+					sizeofEdges += grid.Edges.size();
+				}
+				int badmap = MakeBadData(benchmark);
+				auto obj = AstarPlusPlus();
+				obj.getWay(benchmark, badmap, Point(0, 0), badmap==0?1:0);
+				std::string formatedstring = std::format("Maps: {}\nSize Map: {}\nEdges: {}\nLengthOperations: {}", maps, sizex * sizex, sizeofEdges,obj.lengthoperations);
+				std::cout << formatedstring << std::endl;
+			}
+		}
+	}
+	return;
 }

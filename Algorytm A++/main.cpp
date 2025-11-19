@@ -6,6 +6,7 @@
 #include "Utility.hpp"
 int main()
 {
+	srand(time(NULL));
 #ifdef _DEBUG
 	bool tests = testsUnit::testAstarSingleGrid();
 	if (tests) {
@@ -15,7 +16,8 @@ int main()
 		std::cout << "TESTS FAILED!\n";
 		return 1;
 	}
-	testsUnit::testBenchmark();
+	//testsUnit::testBenchmark();
+	testsUnit::testBenchmarkMultiple();
 #endif // DEBUG
 	std::vector<int> test = { 1,2,3,4,5 };
 	reverse(test.begin(), test.end());

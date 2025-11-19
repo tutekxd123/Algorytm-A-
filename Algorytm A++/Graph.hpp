@@ -1,9 +1,16 @@
 #include <format>
 #include <vector>
 #include <glaze/glaze.hpp>
-
+#include <unordered_set>
 #pragma once
+static int GenerateNumber(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
 
+static bool ChanceGenerate(int percentage) {
+    int number = GenerateNumber(0, 100);
+    return number < percentage;
+}
 struct Point {
 public:
     uint8_t x;
@@ -27,6 +34,7 @@ public:
     Point Grid2Point;
     Edge(int idMapConnect, Point& Grid1Point, Point& Grid2Point) : idMapConnect(idMapConnect), Grid1Point(Grid1Point), Grid2Point(Grid2Point) {};
 	Edge() : idMapConnect(0), Grid1Point(), Grid2Point() {};
+    Edge(int idMapConnect, Point* Grid1Point, Point* Grid2Point) : idMapConnect(idMapConnect), Grid1Point(*Grid1Point), Grid2Point(*Grid2Point) {};
 };
 
 class Grid {
@@ -38,17 +46,57 @@ public:
     uint8_t height = 0;
     Grid(int id, int width, int height) : id(id), width(width), height(height) {}
 	Grid() : id(0), width(1), height(1) {}
-    const Point& getPoint(int x, int y) const{
+    Point& getPoint(int x, int y) {
         return points[(x * height) + y];
     }
-    const Edge getEdge(int mapidconnect,int& lengthoperations) const{
-        for(auto& edge: Edges){
+    Point* getRandomPoint(bool collision, std::unordered_set<std::string>& PointsonGridTaken) {
+        int maxretry = this->points.size();
+        while (maxretry > 0) {
+            int x = GenerateNumber(0, this->width - 1);
+            int y = GenerateNumber(0, this->height - 1);
+            Point& point = this->getPoint(x, y);
+            if (point.collision == false) {
+                std::string pointtostring = point.toString();
+                if (PointsonGridTaken.contains(pointtostring)) {
+                    continue;
+                }
+                PointsonGridTaken.insert(pointtostring);
+                return &point;
+            }
+            maxretry--;
+        }
+        return nullptr;
+    }
+    Edge getEdge(int mapidconnect, int& lengthoperations) {
+        for (auto& edge : Edges) {
             lengthoperations += 2;
             if (edge.idMapConnect == mapidconnect) {
                 return edge;
             }
         }
         return Edge();
+    }
+
+    Edge getEdge(int mapidconnect, int& lengthoperations) const {
+        for (const auto& edge : Edges) {
+            lengthoperations += 2;
+            if (edge.idMapConnect == mapidconnect) {
+                return edge;
+            }
+        }
+        return Edge();
+    }
+
+    void GenerateNewGrid(int minx, int maxx, int miny, int maxy, int chanceforcol) {
+        width = GenerateNumber(minx, maxx);
+        height = GenerateNumber(miny, maxy);
+        points.clear();
+        points.reserve(width * height);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                points.emplace_back(Point(x, y, ChanceGenerate(chanceforcol)));
+            }
+        }
     }
 };
 
@@ -68,6 +116,7 @@ struct glz::meta<Point> {
         "y",& T::y,
         "collision",& T::collision
     );
+
 };
 template <>
 struct glz::meta<Edge> {
