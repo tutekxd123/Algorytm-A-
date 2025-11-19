@@ -10,7 +10,7 @@ int MakeBadData(Graph& graph) {
 	for (Edge& edge : badGrid.Edges) {
 		Grid& otherGrid = graph.Grids[edge.idMapConnect]; //Okay i szukamy  edge do tego
 		auto edgefind = otherGrid.getEdge(randomMapIndex,length);
-		Point& pointinGrid = edgefind.Grid1Point;
+		Point& pointinGrid = edgefind.Grid2Point;
 		int diff[4][2] = { {0,1},{1,0},{-1,0},{0,-1} };
 		for (int i = 0; i < 4; i++) {
 			int dx = pointinGrid.x + diff[i][0];
