@@ -29,39 +29,31 @@ std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNei
 }
 
 
-std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph graph, AstarPlusPlusNode* currentNode) //Kopia CurrentNode celowa
-{
-
+std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph& graph, AstarPlusPlusNode* currentNode) {
 	std::vector<Point>Wynik;
+	std::vector<int>Grupy;
 	AstarGrid AstarObj = AstarGrid();
 	int lastconnected = 0;
 	this->lengthoperations += 3;
 	while (currentNode->parent != nullptr) {
-		//musimy przeczytac z edge! znowu
-		Point targetpoint = currentNode->grid->getEdge(currentNode->parent->grid->id,this->lengthoperations).Grid1Point;
-		//std::cout << currentNode->grid->id<<std::endl;
-		auto droga = AstarObj.GetWay(*currentNode->grid, currentNode->point, targetpoint);
-		this->lengthoperations += AstarObj.lengthoperations;
-		this->lengthoperations += 2;
-		for (auto& node : droga) {
-			this->lengthoperations += 1;
-			Wynik.emplace_back(node);
-		}
-		lastconnected = currentNode->grid->id;
+		Grupy.emplace_back(currentNode->grid->id);
 		currentNode = currentNode->parent;
 		this->lengthoperations += 2;
 	}
-	//Add last road 
-	std::cout << currentNode->grid->id<<std::endl;
-	Point targetpoint = currentNode->grid->getEdge(lastconnected,this->lengthoperations).Grid1Point;
-	auto droga = AstarObj.GetWay(*currentNode->grid, currentNode->point,targetpoint);
-		this->lengthoperations += AstarObj.lengthoperations;
-	this->lengthoperations += 2;
-	for (auto& node : droga) {
-		this->lengthoperations += 1;
-		Wynik.emplace_back(node);
+	Grupy.emplace_back(currentNode->grid->id);
+	this->lengthoperations += Utility::reverse(&Grupy[0], &Grupy[0] + Grupy.size()) + 2;
+	Point CurrentPoint = currentNode->point; //startNode
+	for (int i = 0; i < Grupy.size() - 1; i++) {
+		Edge edge = graph.Grids[Grupy[i]].getEdge(Grupy[i + 1], this->lengthoperations);
+		Point targetPoint = edge.Grid1Point;
+		auto droga = AstarObj.GetWay(graph.Grids[Grupy[i]], CurrentPoint, targetPoint);
+		this->lengthoperations += 6;
+		for (const auto& node : droga) {
+			this->lengthoperations += 1;
+			Wynik.emplace_back(node);
+		}
+		CurrentPoint = edge.Grid2Point;
 	}
-	this->lengthoperations += Utility::reverse(&Wynik[0], &Wynik[0] + Wynik.size()) + 1;
 	return Wynik;
 }
 
