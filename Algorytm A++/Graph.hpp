@@ -49,8 +49,56 @@ public:
     Point& getPoint(int x, int y) {
         return points[(x * height) + y];
     }
+    Point* getNotRandomPoint(std::unordered_set<std::string>& PointsonGridTaken) {
+        std::vector<Point*> edgePoints;
+        //Metoda która dodaje punkty na edge
+        for (int x = 0; x < width; x++) {
+            edgePoints.push_back(&getPoint(x, 0));
+            edgePoints.push_back(&getPoint(x, height - 1));
+        }
+        //0,0 1,0 2,0 3,0   4,0 .... + w gore
+        for (int y = 1; y < height - 1; y++) {
+            edgePoints.push_back(&getPoint(0, y));
+            edgePoints.push_back(&getPoint(width - 1, y));
+        }
+        // lewa i prawa scianka
+        // 0,1 0,2 0,3 + width,y
+        //pick nearnest point ? from what? from everyEdge?
+		std::vector < std::pair<int, Point*>> distances;
+        for (auto& point : edgePoints) {
+			int sumdistance = 0;
+            for (auto& edge : Edges) {
+                Point current = edge.Grid1Point;
+				int dist = abs(point->x - current.x) + abs(point->y - current.y);
+				sumdistance += dist;
+            }
+			distances.emplace_back(sumdistance, point);
+        }
+        if (distances.empty()) {
+            int idx = GenerateNumber(0, edgePoints.size() - 1);
+            return edgePoints[idx];
+        }
+        else {
+			//iterujemy i bierzemy ten z najwieksza odlegloscia
+            int maxdistance = 0;
+			Point* selectedpoint = nullptr;
+            for(auto& [dist, point] : distances) {
+                if (PointsonGridTaken.contains(point->toString()) || point->collision) {
+                    continue;
+                }
+                if (dist >= maxdistance) {
+                    maxdistance = dist;
+					selectedpoint = point;
+                }
+			}
+			PointsonGridTaken.insert(selectedpoint->toString());
+            return selectedpoint;
+
+        }
+
+    }
     Point* getRandomPoint(bool collision, std::unordered_set<std::string>& PointsonGridTaken) {
-        int maxretry = this->points.size();
+        size_t maxretry = this->points.size();
         while (maxretry > 0) {
             int x = GenerateNumber(0, this->width - 1);
             int y = GenerateNumber(0, this->height - 1);

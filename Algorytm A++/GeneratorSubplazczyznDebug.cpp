@@ -10,15 +10,18 @@ int MakeBadData(Graph& graph) {
 	for (Edge& edge : badGrid.Edges) {
 		Grid& otherGrid = graph.Grids[edge.idMapConnect]; //Okay i szukamy  edge do tego
 		auto edgefind = otherGrid.getEdge(randomMapIndex,length);
-		Point& pointinGrid = edgefind.Grid2Point;
-		int diff[4][2] = { {0,1},{1,0},{-1,0},{0,-1} };
-		for (int i = 0; i < 4; i++) {
+		Point& pointinGrid = edgefind.Grid1Point;
+		/*
+		int diff[5][2] = { {0,1},{1,0},{-1,0},{0,-1},{0,0} };
+		for (int i = 0; i < 5; i++) {
 			int dx = pointinGrid.x + diff[i][0];
 			int dy = pointinGrid.y + diff[i][1];
 			if (dx >= 0 && dx < otherGrid.width && dy < otherGrid.height && dy >= 0) {
 				otherGrid.getPoint(dx, dy).collision = true;
 			}
 		}
+		*/
+		otherGrid.getPoint(pointinGrid.x,pointinGrid.y).collision = true;
 		//Robimy kolizje wokol tego punktu
 
 	}
@@ -66,8 +69,10 @@ Graph MakeGraph(int sizemap,int maxconnonmaps, int minx, int maxx, int miny, int
 			AlreadyEdges.insert(EdgeCheck1);
 			AlreadyEdges.insert(EdgeCheck2);
 			//Krawdzecie do setu dodane, tera Trzeba koordynaty wygenerowac z jednej i drugiej mapy ktore nie sa kolizja i nie s¹ tak¿e granicznym wezlem
-			Point* PointinGrid1 = newgraph.Grids[i].getRandomPoint(false, PointsonGridTaken[newgraph.Grids[i].id]);
-			Point* PointinGrid2 = newgraph.Grids[ConnectTO].getRandomPoint(false, PointsonGridTaken[newgraph.Grids[ConnectTO].id]);
+			// Point* PointinGrid1 = newgraph.Grids[i].getRandomPoint(false, PointsonGridTaken[newgraph.Grids[i].id]);
+			//Point* PointinGrid2 = newgraph.Grids[ConnectTO].getRandomPoint(false, PointsonGridTaken[newgraph.Grids[ConnectTO].id]);
+			Point* PointinGrid1 = newgraph.Grids[i].getRandomPoint(false,PointsonGridTaken[i]);
+			Point* PointinGrid2 = newgraph.Grids[ConnectTO].getRandomPoint(false,PointsonGridTaken[ConnectTO]);
 			if (PointinGrid1 == nullptr || PointinGrid2 == nullptr) { //jezeli jakis nullptr to powinnismy to jakos obsluzyc narazie pomijam tutaj powinno byc throw
 				j--;
 				continue;

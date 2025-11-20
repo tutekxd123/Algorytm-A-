@@ -67,22 +67,21 @@ void testsUnit::testBenchmark()
 
 
 void testsUnit::testBenchmarkMultiple() {
-	for (int maps = 10; maps < 150; maps+=5) {
-		for (int edgesmax = 4; edgesmax < 7; edgesmax++) {
-			for (int sizex = 16; sizex < 32; sizex += 16) {
+	std::vector<benchmark> benchmarks;
+	for (int maps = 10; maps < 1500; maps+=50) {
 				//kwadratowe mapy
-				Graph benchmark = MakeGraph(maps, edgesmax,sizex, sizex, sizex, sizex, 0);
-				size_t sizeofEdges=0;
-				for (auto& grid : benchmark.Grids) {
-					sizeofEdges += grid.Edges.size();
-				}
-				int badmap = MakeBadData(benchmark);
-				auto obj = AstarPlusPlus();
-				obj.getWay(benchmark, badmap, Point(0, 0), badmap==0?1:0);
-				std::string formatedstring = std::format("Maps: {}\nSize Map: {}\nEdges: {}\nLengthOperations: {}", maps, sizex * sizex, sizeofEdges,obj.lengthoperations);
-				std::cout << formatedstring << std::endl;
-			}
+		Graph benchmark = MakeGraph(maps, (int)(std::log(maps) * 1.5), 16, 16, 16, 16, 20);
+		size_t sizeofEdges=0;
+		for (auto& grid : benchmark.Grids) {
+			sizeofEdges += grid.Edges.size();
 		}
+		//int badmap = MakeBadData(benchmark);
+		int map = GenerateNumber(1, benchmark.Grids.size() - 1);
+		auto obj = AstarPlusPlus();
+		obj.getWay(benchmark, map, Point(5, 5), map);
+		benchmarks.emplace_back(sizeofEdges, obj.lengthoperations, maps);
 	}
+	//Saving benchmarks to file using Glaze
+	auto ec = glz::write_file_json(benchmarks, "./benchmarksresults.json", std::string{});
 	return;
 }

@@ -33,7 +33,6 @@ std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph& graph, AstarPlusP
 	std::vector<Point>Wynik;
 	std::vector<int>Grupy;
 	AstarGrid AstarObj = AstarGrid();
-	int lastconnected = 0;
 	this->lengthoperations += 3;
 	while (currentNode->parent != nullptr) {
 		Grupy.emplace_back(currentNode->grid->id);
@@ -71,6 +70,8 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 	std::unordered_set<AstarPlusPlusNode*, NodeHasherPTR> ClosedSet;
 	allNodes.reserve(10000);
 	this->lengthoperations += 4;
+	//NieUwzgledniam Kopiowania punktow jako iloœæ kroków spowodu ze w samym algorytmie nie sa liczone jako krok!
+	//W algorytmie mamy gotowe punkty do uzycia(GRAF)
 	for (const auto& grid : graph.Grids) {
 		auto node = AstarPlusPlusNode(&grid);
 		if (grid.id == GrupaWezlowStart) {
@@ -78,10 +79,10 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 			node.gCost = 0;
 			allNodes.emplace_back(node);
 			OpenSet.insert(std::make_tuple(node.grid->id, node.point, 0), &allNodes.back());
-			this->lengthoperations += 7;
+			//this->lengthoperations += 7;
 		}
 		else {
-			this->lengthoperations += 2;
+			//this->lengthoperations += 2;
 			allNodes.emplace_back(&grid);
 		}
 	}
