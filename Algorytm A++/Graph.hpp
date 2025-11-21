@@ -116,7 +116,7 @@ public:
                 for (auto& taken : PointsonGridTaken) {
 					int tx, ty;
                     sscanf_s(taken.c_str(), "%d,%d", &tx, &ty); //?? wczytanie ze string do dwoch intow
-                    if ( (abs(tx - point.x) +  abs(ty - point.y) )<2) {
+                    if ( (abs(tx - point.x) +  abs(ty - point.y) )<5) {
                         ok = false;
                         break;
 					}

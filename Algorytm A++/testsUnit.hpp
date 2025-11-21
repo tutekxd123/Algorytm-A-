@@ -4,6 +4,7 @@
 #include <iostream>
 #include "A++.hpp"
 #include "GeneratorSubplazczyznDebug.hpp"
+#include <future>
 struct benchmark {
 	int edges;
 	size_t lengthoperations;

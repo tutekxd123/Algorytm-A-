@@ -40,7 +40,7 @@
 			this->lengthoperations += 4;
 			AstarNode* newpoint = &grid[(dx * maxheight) + dy];
 			
-			if (!newpoint->node->collision) {
+			if (newpoint->node->collision==false) {
 				this->lengthoperations += 1;
 				result.emplace_back(newpoint);
 			}
@@ -70,6 +70,10 @@
 		MinHeap<double, AstarNode*, HasherAstarNodePTR> OpenSet;
 		std::unordered_set<AstarNode*> ClosedSet;
 		AstarNode* startnode = &getNode(start.x, start.y, maxheight, gridNode);
+		if (startnode->node->collision) {
+			this->lengthoperations +=1;
+			return std::vector<Point>();
+		}
 		startnode->gscore = 0;
 		startnode->fscore = getHeuristic(*startnode->node, target); //calc distance!
 		OpenSet.insert(0, startnode);

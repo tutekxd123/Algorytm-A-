@@ -65,12 +65,17 @@ void testsUnit::testBenchmark()
 	obj.getWay(benchmark, 8, Point(0, 0), 1);
 }
 
+std::mutex mtx;
 
 void testsUnit::testBenchmarkMultiple() {
+
 	std::vector<benchmark> benchmarks;
-	for (int maps = 10; maps < 100; maps+=20) {
+	std::vector<std::future<void>> futures;
+	for (int maps = 500; maps < 1500; maps+=50) {
+		futures.push_back(std::async(std::launch::async, [maps, &benchmarks]() {
+			
 				//kwadratowe mapy
-		const Graph benchmark = MakeGraph(maps, (int)(std::log(maps) * 1.5), 16, 16, 16, 16, 0);
+		Graph benchmark = MakeGraph(maps, (int)(std::log(maps) * 1.5), 16, 16, 16, 16, 20);
 		size_t sizeofEdges=0;
 		for (auto& grid : benchmark.Grids) {
 			sizeofEdges += grid.Edges.size();
@@ -92,7 +97,12 @@ void testsUnit::testBenchmarkMultiple() {
 			obj.getWay(benchmark, map, benchmark.Grids[map].getPoint(5, 5), map == 0 ? 1 : 0);
 			obj2.getWayOptimized(benchmark, map, Point(5, 5), map == 0 ? 1 : 0, bfs, emptycache);
 		}
+		std::lock_guard<std::mutex> lock(mtx);
 		benchmarks.emplace_back(sizeofEdges, obj.lengthoperations,obj3.lengthoperations,obj2.lengthoperations, maps);
+			}));
+	}
+	for (auto& f : futures) {
+		f.get();
 	}
 	//Saving benchmarks to file using Glaze
 	auto ec = glz::write_file_json(benchmarks, "./benchmarksresults.json", std::string{});

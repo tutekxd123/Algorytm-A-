@@ -50,18 +50,12 @@ struct NodePTRComparator {
 			return a->gCost < b->gCost;
 		}
 };
-
 struct NodeHasherPTR {
-	size_t operator()(const AstarPlusPlusNode* point) const
-	{
-		// Combine hashes of x and y using the bitwise XOR
-		return (
-			(std::hash<int>()(point->grid->id)) ^
-			(std::hash<int>()(point->point.x) << 1) ^
-			(std::hash<int>()(point->point.y) << 2)
-			);
+	size_t operator()(const AstarPlusPlusNode* p) const noexcept {
+		return std::hash<const AstarPlusPlusNode*>()(p);
 	}
 };
+
 struct GridHasher {
 	size_t operator()(const std::pair<size_t, const Grid*>& pair) const
 	{
@@ -99,7 +93,7 @@ class AstarPlusPlus {
 public:
 	int lengthoperations = 0;
 	std::vector<Point> getWay(const Graph& graph, int GrupaWezlowCel, const Point& StartPoint, int GrupaWezlowStart);
-	std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> getNeighbors( std::vector<AstarPlusPlusNode>&AllNodes,const AstarPlusPlusNode* currentNode, const Graph& graph);
+	std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> getNeighbors( std::deque<AstarPlusPlusNode>&AllNodes,const AstarPlusPlusNode* currentNode, const Graph& graph);
 	std::vector<Point> ReconstructPath(const Graph& graph, AstarPlusPlusNode* currentNode);
 	static std::unordered_map<std::pair<int, int>, size_t,PairHasher> GetAllPossibleBFS(const Graph& graph); //For Heuristic
 	static std::unordered_map<std::tuple<int, Point, Point>, size_t, TupleHasher> GetAstarCache(const Graph& graph); //For Cache

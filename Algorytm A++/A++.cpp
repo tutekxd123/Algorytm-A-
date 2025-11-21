@@ -3,7 +3,7 @@
 
 
 //std::vector<AstarPlusPlusNode> getNeighbors(const std::vector<AstarPlusPlusNode>&AllNodes,const AstarPlusPlusNode* currentNode, const Graph& graph);
-std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNeighbors(std::vector<AstarPlusPlusNode>& AllNodes, const AstarPlusPlusNode* currentNode, const Graph& graph)
+std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNeighbors(std::deque<AstarPlusPlusNode>& AllNodes, const AstarPlusPlusNode* currentNode, const Graph& graph)
 {
 
 	std::vector<std::tuple<AstarPlusPlusNode*,size_t,Point>> result;
@@ -235,14 +235,13 @@ std::vector<Point> AstarPlusPlus::getWayOptimized(const Graph& graph, int GrupaW
 
 double AstarPlusPlus::getHeuristic(int map1, int map2, const std::unordered_map<std::pair<int, int>, size_t, PairHasher>& bfsDistances, const int constnumber)
 {
-	return 0;
 	//Zakladam Ze zawsze mamy dystans w map!'
 	auto find = bfsDistances.find(std::make_pair(map1, map2));
 	//find O(1) mapa
 	if (find != bfsDistances.end()) {
 		size_t distance = find->second;
 		this->lengthoperations += 5;
-		return distance;
+		return distance * constnumber;
 	}
 	else {
 		throw std::invalid_argument("Brak dystansu w bfsDistances");
@@ -294,12 +293,12 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 	}
 	this->lengthoperations += 2;
 	//Okay Create Vector?
-	std::vector<AstarPlusPlusNode> allNodes;
+	std::deque<AstarPlusPlusNode> allNodes;
 	MinHeap<std::tuple<int,Point,int>, AstarPlusPlusNode*, NodeHasherPTR> OpenSet;
 
 	//Zmiana na MiniHeap
 	std::unordered_set<AstarPlusPlusNode*, NodeHasherPTR> ClosedSet;
-	allNodes.reserve(10000);
+	//allNodes.reserve(10000);
 	this->lengthoperations += 4;
 	//NieUwzgledniam Kopiowania punktow jako iloœæ kroków spowodu ze w samym algorytmie nie sa liczone jako krok!
 	//W algorytmie mamy gotowe punkty do uzycia(GRAF)
@@ -320,7 +319,6 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 	while (!OpenSet.isEmpty()) {
 		AstarPlusPlusNode* current;
 		OpenSet.getMin(current);
-
 		ClosedSet.insert(current);
 		OpenSet.deleteMin();
 		this->lengthoperations += 2;
