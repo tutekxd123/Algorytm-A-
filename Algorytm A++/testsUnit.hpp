@@ -7,8 +7,11 @@
 struct benchmark {
 	int edges;
 	size_t lengthoperations;
+	size_t lengthoptimizedwithcache;
+	size_t lengthoptimizedwithoutcache;
 	int nodes;
-	benchmark(int edges,int lengthoperations, int nodes): edges(edges), lengthoperations(lengthoperations), nodes(nodes) {}
+	benchmark(int edges, size_t lengthoperations, size_t lengthoptimizedwithcache, size_t lengthoptimizedwithoutcache, int nodes)
+		: edges(edges), lengthoperations(lengthoperations), lengthoptimizedwithcache(lengthoptimizedwithcache), lengthoptimizedwithoutcache(lengthoptimizedwithoutcache), nodes(nodes) {}
 };
 template<>
 struct glz::meta<benchmark> {
@@ -16,6 +19,8 @@ struct glz::meta<benchmark> {
 	static constexpr auto value = glz::object(
 		"edges", &T::edges,
 		"lengthoperations", &T::lengthoperations,
+		"lengthoptimizedwithcache", &T::lengthoptimizedwithcache,
+		"lengthoptimizedwithoutcache", &T::lengthoptimizedwithoutcache,
 		"nodes", &T::nodes
 	);
 };

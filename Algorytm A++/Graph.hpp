@@ -49,6 +49,9 @@ public:
     Point& getPoint(int x, int y) {
         return points[(x * height) + y];
     }
+    const Point& getPoint(int x, int y)const  {
+        return points[(x * height) + y];
+    }
     Point* getNotRandomPoint(std::unordered_set<std::string>& PointsonGridTaken) {
         std::vector<Point*> edgePoints;
         //Metoda która dodaje punkty na edge
@@ -108,7 +111,24 @@ public:
                 if (PointsonGridTaken.contains(pointtostring)) {
                     continue;
                 }
-                PointsonGridTaken.insert(pointtostring);
+                //PointsonGridTaken.insert(pointtostring);
+                bool ok = true;
+                for (auto& taken : PointsonGridTaken) {
+					int tx, ty;
+                    sscanf_s(taken.c_str(), "%d,%d", &tx, &ty); //?? wczytanie ze string do dwoch intow
+                    if ( (abs(tx - point.x) +  abs(ty - point.y) )<2) {
+                        ok = false;
+                        break;
+					}
+                }
+                if (ok) {
+					PointsonGridTaken.insert(pointtostring);
+					return &point;
+                }
+                else {
+                    maxretry--;
+                    continue;
+                }
                 return &point;
             }
             maxretry--;

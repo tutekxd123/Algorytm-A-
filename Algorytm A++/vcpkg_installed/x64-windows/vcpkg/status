@@ -2,14 +2,14 @@ Package: vcpkg-cmake-config
 Version: 2024-05-23
 Architecture: x64-windows
 Multi-Arch: same
-Abi: f536d4605c73c466b9c52c4405f17f6a4fb5ff2de8ea1afa7afa3e5b68e7aab7
+Abi: 3bb65e1f9d7992b2f868af01bf8678e6fccd71a41b87ca4eaabc267f00dbc974
 Status: install ok installed
 
 Package: vcpkg-cmake
 Version: 2024-04-23
 Architecture: x64-windows
 Multi-Arch: same
-Abi: 3b27439921cfa7f52be59752c92576c6e1bd7f495c566cedefdf6c01c4359dcf
+Abi: 6ff529e00de3fe74aeab234275facbdc17e700dec85e185506af4eeeac754d59
 Status: install ok installed
 
 Package: glaze
@@ -17,7 +17,1019 @@ Version: 6.0.1
 Depends: vcpkg-cmake, vcpkg-cmake-config
 Architecture: x64-windows
 Multi-Arch: same
-Abi: 02dda5cd95e3b75de361f286bff7b9466592525e6282784120e2c8056962ba37
+Abi: d9f72eb92def9f6b14049f9c1910edde2ed4fb23626e70898a08bfa4938832f9
 Description: One of the fastest JSON libraries in the world. Glaze reads and writes from C++ memory, simplifying interfaces and offering incredible performance.
 Status: install ok installed
+
+Package: vcpkg-boost
+Version: 2025-03-29
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 750142427d2bbab19760c3bddab05eebe649a7ff65e24ec2bae445aa1defca8c
+Status: purge ok not-installed
+
+Package: boost-uninstall
+Version: 1.89.0
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e7660d4e0c842fd90c1837d9c212991565b0e4a959c52db12ee7b28a9a3b3743
+Description: Internal vcpkg port used to uninstall Boost
+Status: purge ok not-installed
+
+Package: boost-cmake
+Version: 1.89.0
+Depends: boost-uninstall, vcpkg-boost
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b7750ca47a5adb47c11d824e39b4ca8691d489d05d2fbfbc15c6a9bae0449399
+Description: Boost cmake module
+Status: purge ok not-installed
+
+Package: boost-headers
+Version: 1.89.0
+Depends: boost-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 97e1e7c4b588e8e6286d1247dd92e3deb45d07c82ee0bd4f1320690c6125df86
+Description: Boost headers module
+Status: purge ok not-installed
+
+Package: boost-config
+Version: 1.89.0
+Depends: boost-cmake, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a43e8dca016a8ed3992d497b18616a52aa3f040badfd3839e0084736ceaae199
+Description: Boost config module
+Status: purge ok not-installed
+
+Package: boost-assert
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 4dc2d0610a5d5e77da57704a9c6c9c24527ad67284a21889f2fabb804b972ad8
+Description: Boost assert module
+Status: purge ok not-installed
+
+Package: boost-throw-exception
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c7cff900a2dbeb4218a410eb757d8db3b686e5a16b62f59b129069d15953ec28
+Description: Boost throw_exception module
+Status: purge ok not-installed
+
+Package: boost-static-assert
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7b97a461369684ab543a2206a080acf5d29a4ff907b7d94bbf9b53d0f9a20ac4
+Description: Boost static_assert module
+Status: purge ok not-installed
+
+Package: boost-core
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-static-assert, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d606b1387033724621502aa4156be3c96a0a98df6c955e0723e11351b4b47003
+Description: Boost core module
+Status: purge ok not-installed
+
+Package: boost-mp11
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 5ef852ff4a765b758b4cf62b920d56d6d2bd880ad7e83480239535ac70e25582
+Description: Boost mp11 module
+Status: purge ok not-installed
+
+Package: boost-describe
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers, boost-mp11
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 5a496db2b1c15e891407c3bfbd821b3d99d6e32ca87cbfdc2c8b9eb4f4afedcb
+Description: Boost describe module
+Status: purge ok not-installed
+
+Package: boost-container-hash
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-describe, boost-headers, boost-mp11
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 08585355f979c66f1925a2453fe492390b8034fdf829e7ae2e801b0ce7229da7
+Description: Boost container_hash module
+Status: purge ok not-installed
+
+Package: boost-type-index
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-container-hash, boost-core, boost-headers, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f644053d68b149ad24f13f1f24b650555adae8b066fea283570c9c6ff476a63e
+Description: Boost type_index module
+Status: purge ok not-installed
+
+Package: boost-preprocessor
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 82710b28009030ebebe52e0d550861f92d6e728d92b25ee252f05ecc4377edfa
+Description: Boost preprocessor module
+Status: purge ok not-installed
+
+Package: boost-type-traits
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers, boost-static-assert
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d9f10b52536646658ffe5e7e154e87f80867225f26d0153c58305a3e8f0026ef
+Description: Boost type_traits module
+Status: purge ok not-installed
+
+Package: boost-tuple
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-headers, boost-static-assert, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 4246c238fca2dd3654f6615f90aa69885877d1d78e7fbf5dd0baa346b2de56b1
+Description: Boost tuple module
+Status: purge ok not-installed
+
+Package: boost-io
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d3692211b7c3ef7cd3def88736c71ca7bccde4ea51a29c55f7e8346f5d5b87bd
+Description: Boost io module
+Status: purge ok not-installed
+
+Package: boost-utility
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-io, boost-preprocessor, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 574650cf84fffa1159e6d202d70e8ab1bd1c76a1feaa00af4c1aaf311bd0809a
+Description: Boost utility module
+Status: purge ok not-installed
+
+Package: boost-predef
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2cba1786d292abc2767c2cbd3a97b9edf864418324da595c31e72efb56f76add
+Description: Boost predef module
+Status: purge ok not-installed
+
+Package: boost-mpl
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-headers, boost-predef, boost-preprocessor, boost-static-assert, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 4e6bd1ca4bba0caf731daca88857fa39d40d950a497af70167b2b85474ed6260
+Description: Boost mpl module
+Status: purge ok not-installed
+
+Package: boost-typeof
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a2da0a4cab1dea501ac89d06429523f91405e1fc54015a53739a29d0bdcbf25d
+Description: Boost typeof module
+Status: purge ok not-installed
+
+Package: boost-detail
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-headers, boost-preprocessor, boost-static-assert, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: aa1b3d57e75671a93357d096993f018f04d86ed09733e30520e167bd36905c05
+Description: Boost detail module
+Status: purge ok not-installed
+
+Package: boost-function-types
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-detail, boost-headers, boost-mpl, boost-preprocessor, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 79dd94a819240afd9b7d19d9a05f41c3f7cac58a83bec7d35ccada12d7a1b60f
+Description: Boost function_types module
+Status: purge ok not-installed
+
+Package: boost-bind
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b3dd2b2b67536c31acd9859ccaf7cb06fade884238e2421883ed415cc798083d
+Description: Boost bind module
+Status: purge ok not-installed
+
+Package: boost-function
+Version: 1.89.0
+Depends: boost-assert, boost-bind, boost-cmake, boost-config, boost-core, boost-headers, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2ee74d8a98b956344922bb3ec3518a55f8cc40f6825b3db4ec34edc3cf32d123
+Description: Boost function module
+Status: purge ok not-installed
+
+Package: boost-functional
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-function, boost-function-types, boost-headers, boost-mpl, boost-preprocessor, boost-type-traits, boost-typeof, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 99e19191e7a283644d710ba8f62ce71b032adfa1c573ccbba070aa3c4bfc0035
+Description: Boost functional module
+Status: purge ok not-installed
+
+Package: boost-fusion
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-container-hash, boost-core, boost-function-types, boost-functional, boost-headers, boost-mpl, boost-preprocessor, boost-static-assert, boost-tuple, boost-type-traits, boost-typeof, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2483a2285add4ccf4b5da09a00d731e20b6198781b5f40f07e58e369c2340e1b
+Description: Boost fusion module
+Status: purge ok not-installed
+
+Package: boost-hana
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-fusion, boost-headers, boost-mpl, boost-tuple
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a75c74749efc59cf1c24b561bcf851da8453a3e7ca5bb658ff27a90b27db3aac
+Description: Boost hana module
+Status: purge ok not-installed
+
+Package: boost-yap
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-hana, boost-headers, boost-preprocessor, boost-type-index
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b079f37f0841e8e54cc5da8044384485d9f90c06fc1be706e72a30c254c9e1d0
+Description: Boost yap module
+Status: purge ok not-installed
+
+Package: boost-integer
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-static-assert, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 742f05910a14e01dafeec0695f2757b6d250ddda7c997a66aaa61ca91db33051
+Description: Boost integer module
+Status: purge ok not-installed
+
+Package: boost-variant
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-container-hash, boost-core, boost-detail, boost-headers, boost-integer, boost-mpl, boost-preprocessor, boost-static-assert, boost-throw-exception, boost-type-index, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b23eadc5b58a9856e04255afd74a1a4e1431667226318158a7d75185d561c8b2
+Description: Boost variant module
+Status: purge ok not-installed
+
+Package: boost-unordered
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-container-hash, boost-core, boost-headers, boost-mp11, boost-predef, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 204a4623bd722bc3c6d6f91181d2677dc631ca7fdbe49c75e22c95077862b27f
+Description: Boost unordered module
+Status: purge ok not-installed
+
+Package: boost-winapi
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers, boost-predef
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 292529fbb6248791ba36517bc31160a4a39edde98b252da20054c6c857233077
+Description: Boost winapi module
+Status: purge ok not-installed
+
+Package: boost-variant2
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-mp11
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 948f54542286963029c410a4cff0b110020f230115b27149902cac9c0f23d07d
+Description: Boost variant2 module
+Status: purge ok not-installed
+
+Package: boost-system
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-throw-exception, boost-variant2, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ceb710b57b6ca3e35803656a2a81c7e2624837f2448d3ba1c64c929f662ce9d2
+Description: Boost system module
+Status: purge ok not-installed
+
+Package: boost-smart-ptr
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 004a19915fd584b8ad1821a429b0b7bfff4e37ed61d0b179dd59217895b74f4f
+Description: Boost smart_ptr module
+Status: purge ok not-installed
+
+Package: boost-optional
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a5d5e1e5a6d903a7e5341292b3dfdf75a8a21cd1792c026435f7f799b1e1fe54
+Description: Boost optional module
+Status: purge ok not-installed
+
+Package: boost-move
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 8bc73c263ee18809011f1c2a2b1d41971b30d5f00a5329174d56f9c624db38ad
+Description: Boost move module
+Status: purge ok not-installed
+
+Package: boost-exception
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-smart-ptr, boost-throw-exception, boost-tuple, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: bd2006002377b4a2b886a12257c40b70cd6e6af302b018ab3d620c8511949737
+Description: Boost exception module
+Status: purge ok not-installed
+
+Package: boost-concept-check
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers, boost-preprocessor, boost-static-assert, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 9cf2defc902394a37f5d3f8f03b4de9c131924d93d7ed7e701e72272f9c9325e
+Description: Boost concept_check module
+Status: purge ok not-installed
+
+Package: boost-iterator
+Version: 1.89.0
+Depends: boost-cmake, boost-concept-check, boost-config, boost-core, boost-detail, boost-fusion, boost-headers, boost-mp11, boost-mpl, boost-optional, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 71a9c03942ef26033c966f312e694de8373a51d0f534cc291bc7104c9417a397
+Description: Boost iterator module
+Status: purge ok not-installed
+
+Package: boost-tokenizer
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-iterator, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a77b09b396b11e03ff4944d292fda74e514b3f64110a97efa98aac6ebc06d528
+Description: Boost tokenizer module
+Status: purge ok not-installed
+
+Package: boost-regex
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-concept-check, boost-config, boost-core, boost-headers, boost-predef, boost-static-assert, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d4291bf87e9d864c29f63ba488d3ee66f0b02463d91508e939020124e103f1de
+Description: Boost regex module
+Status: purge ok not-installed
+
+Package: boost-conversion
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-smart-ptr, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6241e6e824aebe50e10776804648cf63bf7ba1fd2691d52f98cb48502d84002f
+Description: Boost conversion module
+Status: purge ok not-installed
+
+Package: boost-array
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-static-assert, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c8c303b2e1c6734198939991d020d090ab2e8f64232f6ade74dee6aa7a7a1a7c
+Description: Boost array module
+Status: purge ok not-installed
+
+Package: boost-range
+Version: 1.89.0
+Depends: boost-array, boost-assert, boost-cmake, boost-concept-check, boost-config, boost-container-hash, boost-conversion, boost-core, boost-detail, boost-headers, boost-iterator, boost-mpl, boost-optional, boost-preprocessor, boost-regex, boost-static-assert, boost-tuple, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d63cc8c57190ab80c465f440fcd37df1f459c409c3e4eb487c19069224446f4e
+Description: Boost range module
+Status: purge ok not-installed
+
+Package: boost-numeric-conversion
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-conversion, boost-core, boost-headers, boost-mpl, boost-preprocessor, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2b2ff6cf1184bb0472c9f1a939984c50f84e613354ae75fca29fa7e7fea7ae90
+Description: Boost numeric_conversion module
+Status: purge ok not-installed
+
+Package: boost-intrusive
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-move
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 0471e80b3d8bc42559dffebd78b3eac8a598207f3602165b9f8a63c9cf5d209f
+Description: Boost intrusive module
+Status: purge ok not-installed
+
+Package: boost-container
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-intrusive, boost-move
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2eed44e9dc997327e9d01814b752abf2b1b137469ea482f945d735db409c8672
+Description: Boost container module
+Status: purge ok not-installed
+
+Package: boost-lexical-cast
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-container, boost-core, boost-headers, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e1f725a9e9e9a756d0261918084540cfa99b5a787603bed1bf5a844437221f93
+Description: Boost lexical_cast module
+Status: purge ok not-installed
+
+Package: boost-algorithm
+Version: 1.89.0
+Depends: boost-array, boost-assert, boost-bind, boost-cmake, boost-concept-check, boost-config, boost-core, boost-exception, boost-function, boost-headers, boost-iterator, boost-mpl, boost-range, boost-regex, boost-static-assert, boost-throw-exception, boost-tuple, boost-type-traits, boost-unordered
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6401d37f73f6426778791455820c59eefff8896bf4115e5c64169a90fa3f0092
+Description: Boost algorithm module
+Status: purge ok not-installed
+
+Package: boost-date-time
+Version: 1.89.0
+Depends: boost-algorithm, boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-io, boost-lexical-cast, boost-numeric-conversion, boost-range, boost-smart-ptr, boost-static-assert, boost-throw-exception, boost-tokenizer, boost-type-traits, boost-utility, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1d067cbdf104c98eb8d75749f052cbb7abd439de0ee80c2b2813bdd63a4c7bc0
+Description: Boost date_time module
+Status: purge ok not-installed
+
+Package: boost-ratio
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 79244798b07d4f15bacb0f0242f417b627b55d987d229aa67433ae6901234b83
+Description: Boost ratio module
+Status: purge ok not-installed
+
+Package: boost-chrono
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-integer, boost-move, boost-mpl, boost-predef, boost-ratio, boost-static-assert, boost-system, boost-throw-exception, boost-type-traits, boost-typeof, boost-utility, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1f30ebd900dc9b83f0731226f425cb02220ca5f9e5123447cc721422317cbc3e
+Description: Boost chrono module
+Status: purge ok not-installed
+
+Package: boost-align
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-static-assert
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 5e9426e646b312e59a22db7cd670e23367c8a4f70608907b40956336d09ddbb1
+Description: Boost align module
+Status: purge ok not-installed
+
+Package: boost-atomic
+Version: 1.89.0
+Depends: boost-align, boost-assert, boost-cmake, boost-config, boost-headers, boost-predef, boost-preprocessor, boost-type-traits, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6c74a003cf683b12620c0760b5cedfb6facb000d97db45653490fa8a4f673f06
+Description: Boost atomic module
+Status: purge ok not-installed
+
+Package: boost-thread
+Version: 1.89.0
+Depends: boost-assert, boost-atomic, boost-bind, boost-chrono, boost-cmake, boost-concept-check, boost-config, boost-container, boost-container-hash, boost-core, boost-date-time, boost-exception, boost-function, boost-headers, boost-io, boost-move, boost-optional, boost-predef, boost-preprocessor, boost-smart-ptr, boost-static-assert, boost-system, boost-throw-exception, boost-tuple, boost-type-traits, boost-utility, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 3f7f3c44eeb53b74edddf141c41cfa536c06bd8ce0d0bd6e4ebb94432941800f
+Description: Boost thread module
+Status: purge ok not-installed
+
+Package: boost-proto
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-fusion, boost-headers, boost-mpl, boost-preprocessor, boost-range, boost-static-assert, boost-type-traits, boost-typeof, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 9aba2addd67fb20ab9d1b37c53a4417b76bcd6996893e55647f187c467c29fde
+Description: Boost proto module
+Status: purge ok not-installed
+
+Package: boost-pool
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-integer, boost-throw-exception, boost-type-traits, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7d4419b920772d19db8ce44bafe5a44f26c566a45fb5d9fe984e156fd9bc69f8
+Description: Boost pool module
+Status: purge ok not-installed
+
+Package: boost-phoenix
+Version: 1.89.0
+Depends: boost-assert, boost-bind, boost-cmake, boost-config, boost-core, boost-function, boost-fusion, boost-headers, boost-mpl, boost-predef, boost-preprocessor, boost-proto, boost-range, boost-smart-ptr, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 92809ecf033f1c42cb5d22cf55470ef3a74262a9be7d95a5657ef4afd8d18924
+Description: Boost phoenix module
+Status: purge ok not-installed
+
+Package: boost-endian
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ece6ffa6581938505cb2174c28494a904b600a935e9e7659a5fb741afbc7dc1c
+Description: Boost endian module
+Status: purge ok not-installed
+
+Package: boost-spirit
+Version: 1.89.0
+Depends: boost-array, boost-assert, boost-cmake, boost-config, boost-core, boost-endian, boost-function, boost-function-types, boost-fusion, boost-headers, boost-integer, boost-io, boost-iterator, boost-move, boost-mpl, boost-optional, boost-phoenix, boost-pool, boost-preprocessor, boost-proto, boost-range, boost-regex, boost-smart-ptr, boost-static-assert, boost-thread, boost-throw-exception, boost-type-traits, boost-typeof, boost-unordered, boost-utility, boost-variant
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e5fcd6ce417a09359f49b0d9572ef794850801e51d5b20240dc07fe30465b390
+Description: Boost spirit module
+Status: purge ok not-installed
+
+Package: boost-xpressive
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-conversion, boost-core, boost-exception, boost-fusion, boost-headers, boost-integer, boost-iterator, boost-lexical-cast, boost-mpl, boost-numeric-conversion, boost-optional, boost-preprocessor, boost-proto, boost-range, boost-smart-ptr, boost-spirit, boost-static-assert, boost-throw-exception, boost-type-traits, boost-typeof, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 083b3b876f1311783ea9d173b60d08b39641e9fbfb03fcd64662da5932bc165f
+Description: Boost xpressive module
+Status: purge ok not-installed
+
+Package: boost-serialization
+Version: 1.89.0
+Depends: boost-array, boost-assert, boost-cmake, boost-config, boost-core, boost-detail, boost-function, boost-headers, boost-integer, boost-io, boost-iterator, boost-move, boost-mp11, boost-mpl, boost-optional, boost-predef, boost-preprocessor, boost-smart-ptr, boost-spirit, boost-static-assert, boost-throw-exception, boost-type-traits, boost-utility, boost-variant, boost-variant2
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 83fe0d7c6de919812888bb53589679576d98edaf4199e4978a65affb462eb297
+Description: Boost serialization module
+Status: purge ok not-installed
+
+Package: boost-multi-index
+Version: 1.89.0
+Depends: boost-assert, boost-bind, boost-cmake, boost-config, boost-container-hash, boost-core, boost-headers, boost-integer, boost-iterator, boost-move, boost-mpl, boost-preprocessor, boost-smart-ptr, boost-static-assert, boost-throw-exception, boost-tuple, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 565fc255f0dc60618f342824937abba3358fd1bf78d37d88ab07ef8a530de859
+Description: Boost multi_index module
+Status: purge ok not-installed
+
+Package: boost-format
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-optional, boost-smart-ptr, boost-throw-exception, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dd2bffab7357b895908ad7b6260c7189ecac3fd5f26d0874f450f547d59fa623
+Description: Boost format module
+Status: purge ok not-installed
+
+Package: boost-scope
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: aa439f018858361ccf0b85c67f46acd713feb74449a18c2dda715c430af4ff6d
+Description: Boost scope module
+Status: purge ok not-installed
+
+Package: boost-filesystem
+Version: 1.89.0
+Depends: boost-assert, boost-atomic, boost-cmake, boost-config, boost-container-hash, boost-core, boost-detail, boost-headers, boost-io, boost-iterator, boost-predef, boost-scope, boost-smart-ptr, boost-system, boost-type-traits, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c593600dd3faf29ceab896b5e66223120e8f6dd84bd6189e005950a0b21daa40
+Description: Boost filesystem module
+Status: purge ok not-installed
+
+Package: boost-wave
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-concept-check, boost-config, boost-core, boost-filesystem, boost-format, boost-headers, boost-iterator, boost-lexical-cast, boost-mpl, boost-multi-index, boost-optional, boost-pool, boost-preprocessor, boost-serialization, boost-smart-ptr, boost-spirit, boost-static-assert, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c8da2c3efe09f15b3a6ff8da2ad5ef55cd51b16e3d817d89907f8be0afa476b9
+Description: Boost wave module
+Status: purge ok not-installed
+
+Package: boost-vmd
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers, boost-preprocessor
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 211c01b222e54a4f7307298945443467c8b0c040fbc4a95aaae45d6bb56ebf08
+Description: Boost vmd module
+Status: purge ok not-installed
+
+Package: boost-uuid
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dc7eac7f7904ee9a9060903dd8abacc6972a37a92b7c7622478058d660708c72
+Description: Boost uuid module
+Status: purge ok not-installed
+
+Package: boost-url
+Version: 1.89.0
+Depends: boost-align, boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-mp11, boost-optional, boost-static-assert, boost-system, boost-throw-exception, boost-type-traits, boost-variant2
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f4bab86e8fb4643623826dfe25f1ec7c2659e286a2bae843a37d5725f50d1c5b
+Description: Boost url module
+Status: purge ok not-installed
+
+Package: boost-dynamic-bitset
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-container-hash, boost-core, boost-headers, boost-integer, boost-move, boost-static-assert, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a8d7edfc5100ebc8ac886f0845b8512bcf28478fe8be8b9e3fb6e4de7f51f4b0
+Description: Boost dynamic_bitset module
+Status: purge ok not-installed
+
+Package: boost-random
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-dynamic-bitset, boost-headers, boost-integer, boost-io, boost-static-assert, boost-system, boost-throw-exception, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dbb6bfbf6771e93943969680e40d1576aa40ea31a817c1af25aebd0aeeb5f6b5
+Description: Boost random module
+Status: purge ok not-installed
+
+Package: boost-math
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-concept-check, boost-config, boost-core, boost-headers, boost-integer, boost-lexical-cast, boost-predef, boost-random, boost-static-assert, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: abdfdd7587fe1ed68481667fadb638de3e5997af1197bdb48e812be9f27ad36f
+Description: Boost math module
+Status: purge ok not-installed
+
+Package: boost-lambda
+Version: 1.89.0
+Depends: boost-bind, boost-cmake, boost-config, boost-core, boost-detail, boost-headers, boost-iterator, boost-mpl, boost-preprocessor, boost-tuple, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 38413df823bb9ce7ab5b7dbff10bd1cfb49d02e9173e812e19c759ba43dcd334
+Description: Boost lambda module
+Status: purge ok not-installed
+
+Package: boost-units
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-integer, boost-io, boost-lambda, boost-math, boost-mpl, boost-preprocessor, boost-static-assert, boost-type-traits, boost-typeof
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 478ea8baf85c18efd4c146daae670e7b532a43a43be9bb43c8a5739ccbb11105
+Description: Boost units module
+Status: purge ok not-installed
+
+Package: boost-logic
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d42876753819118c8fa84a235847782bab247f0ea798b1f45bb28a3dbc9ec648
+Description: Boost logic module
+Status: purge ok not-installed
+
+Package: boost-interval
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-detail, boost-headers, boost-logic
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6b495b253ca05b9bafa34ef6fdfcad7de56e5833fc2ca50c3c94b5118789d8d9
+Description: Boost interval module
+Status: purge ok not-installed
+
+Package: boost-any
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-throw-exception, boost-type-index
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7840d727412ba742d86566b1452ffa2e138ab1fc5a7962c4e1c70c2ea7fd081d
+Description: Boost any module
+Status: purge ok not-installed
+
+Package: boost-property-tree
+Version: 1.89.0
+Depends: boost-any, boost-assert, boost-bind, boost-cmake, boost-config, boost-core, boost-headers, boost-iterator, boost-mpl, boost-multi-index, boost-optional, boost-range, boost-serialization, boost-static-assert, boost-throw-exception, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c07c2b5cf0931a5aed724870054ed8341934f3c6a4ef08b43b34a91a2ab034fc
+Description: Boost property_tree module
+Status: purge ok not-installed
+
+Package: boost-compute
+Version: 1.89.0
+Depends: boost-algorithm, boost-array, boost-assert, boost-atomic, boost-chrono, boost-cmake, boost-config, boost-core, boost-filesystem, boost-function, boost-function-types, boost-fusion, boost-headers, boost-iterator, boost-lexical-cast, boost-mpl, boost-optional, boost-preprocessor, boost-property-tree, boost-proto, boost-range, boost-smart-ptr, boost-static-assert, boost-thread, boost-throw-exception, boost-tuple, boost-type-traits, boost-typeof, boost-utility, boost-uuid
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 95cf4a4228680b3f03b837c38c1c1034ee2f598902badf5ea061194d53b36922
+Description: Boost compute module
+Status: purge ok not-installed
+
+Package: boost-ublas
+Version: 1.89.0
+Depends: boost-cmake, boost-compute, boost-concept-check, boost-config, boost-core, boost-headers, boost-interval, boost-iterator, boost-mpl, boost-range, boost-serialization, boost-smart-ptr, boost-static-assert, boost-type-traits, boost-typeof
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c80ce2fe21e28ab19ad1c8f47e931943a86c69d3f8429f47547d8a2053b36078
+Description: Boost ublas module
+Status: purge ok not-installed
+
+Package: boost-type-erasure
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-fusion, boost-headers, boost-iterator, boost-mp11, boost-mpl, boost-preprocessor, boost-smart-ptr, boost-thread, boost-throw-exception, boost-type-traits, boost-typeof, boost-vmd
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b7ef489eb8ee99646debcff8d827951b8809e2dd618854cf134c51c9e4b5475a
+Description: Boost type_erasure module
+Status: purge ok not-installed
+
+Package: boost-tti
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-function-types, boost-headers, boost-mpl, boost-preprocessor, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 30b480a1d73bd6cf605cc3aad4342d2994d079a21e9296c670993371b0049434
+Description: Boost tti module
+Status: purge ok not-installed
+
+Package: boost-timer
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers, boost-io, boost-predef
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 07a843e14cf250272a0f12b443cf19e2fa6b13ea592e118ece6c366358af6d4e
+Description: Boost timer module
+Status: purge ok not-installed
+
+Package: boost-test
+Version: 1.89.0
+Depends: boost-algorithm, boost-assert, boost-bind, boost-cmake, boost-config, boost-core, boost-detail, boost-exception, boost-function, boost-headers, boost-io, boost-iterator, boost-mpl, boost-numeric-conversion, boost-optional, boost-preprocessor, boost-smart-ptr, boost-static-assert, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 09da11ec11ea19e14f52636f40e1d70e9b5ffb8da5f9911450303b4d973096a5
+Description: Boost test module
+Status: purge ok not-installed
+
+Package: boost-stl-interfaces
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-headers, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 338892b001cad661b2fc833db9e99634cf57a8ca5905bf2c232a7b13aeeef13d
+Description: Boost stl_interfaces module
+Status: purge ok not-installed
+
+Package: boost-static-string
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-container-hash, boost-core, boost-headers, boost-static-assert, boost-throw-exception, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 09246ebb327137296d8c76a572b4b80a987768b9abb56cf9e9c2fd9395930d19
+Description: Boost static_string module
+Status: purge ok not-installed
+
+Package: boost-statechart
+Version: 1.89.0
+Depends: boost-assert, boost-bind, boost-cmake, boost-config, boost-conversion, boost-core, boost-detail, boost-function, boost-headers, boost-mpl, boost-smart-ptr, boost-static-assert, boost-thread, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f297ff55e38162b6ef872f8c88c950e5571e6b56352de780037fab208f7838ba
+Description: Boost statechart module
+Status: purge ok not-installed
+
+Package: boost-stacktrace
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-container-hash, boost-core, boost-headers, boost-predef, boost-winapi
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 5793e92669507d693bdf431ce452161f42400722ab518a1b00770a06f8f28701
+Description: Boost stacktrace module
+Default-Features: windbg
+Status: purge ok not-installed
+
+Package: boost-stacktrace
+Feature: windbg
+Architecture: x64-windows
+Multi-Arch: same
+Description: Use boost_stacktrace_windbg
+Status: purge ok not-installed
+
+Package: boost-sort
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-headers, boost-range, boost-static-assert, boost-type-traits
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1466d3051a7b5bf298b2dd2eba3bb8114901c18e2c27f7c6db9abc43471947b3
+Description: Boost sort module
+Status: purge ok not-installed
+
+Package: boost-parameter
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-core, boost-function, boost-fusion, boost-headers, boost-mp11, boost-mpl, boost-optional, boost-preprocessor, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 68fb98bfd39ea87118a02ebbe9c45ccce7b410f768d1f957821759df5f1e08cd
+Description: Boost parameter module
+Status: purge ok not-installed
+
+Package: boost-signals2
+Version: 1.89.0
+Depends: boost-assert, boost-bind, boost-cmake, boost-config, boost-core, boost-function, boost-headers, boost-iterator, boost-move, boost-mpl, boost-optional, boost-parameter, boost-preprocessor, boost-smart-ptr, boost-throw-exception, boost-tuple, boost-type-traits, boost-variant
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f5f8bcacb1ed5047bfff23bc865102d15560fededb9985d61e57f1216bad7d24
+Description: Boost signals2 module
+Status: purge ok not-installed
+
+Package: boost-scope-exit
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-function, boost-headers, boost-preprocessor, boost-type-traits, boost-typeof
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ccf795b3cda6e5f037952aaff0b8b7a9dc0724add63dadca70783df658566edf
+Description: Boost scope_exit module
+Status: purge ok not-installed
+
+Package: boost-safe-numerics
+Version: 1.89.0
+Depends: boost-cmake, boost-concept-check, boost-config, boost-core, boost-headers, boost-integer, boost-logic, boost-mp11
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 19043fd9c7e3a5dd66647342f3a653467d63b9a79211126c6a3fda5e842666cb
+Description: Boost safe_numerics module
+Status: purge ok not-installed
+
+Package: boost-context
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-mp11, boost-pool, boost-predef, boost-smart-ptr
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 39b08f1294d4b7f3420b569685f367e6a4b8242f157d3b7b94dfa553036787fb
+Description: Boost context module
+Status: purge ok not-installed
+
+Package: boost-asio
+Version: 1.89.0
+Depends: boost-align, boost-assert, boost-cmake, boost-config, boost-headers, boost-system, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 32d3981a9cb42b3741e4ac54f471e3147cd45e07b5406660c1c12373424eb86a
+Description: Boost asio module
+Default-Features: deadline-timer, spawn
+Status: purge ok not-installed
+
+Package: boost-asio
+Feature: deadline-timer
+Depends: boost-date-time
+Architecture: x64-windows
+Multi-Arch: same
+Description: Build with deadline_timer support
+Status: purge ok not-installed
+
+Package: boost-asio
+Feature: spawn
+Depends: boost-context
+Architecture: x64-windows
+Multi-Arch: same
+Description: Build with spawn (stackful coroutines) support
+Status: purge ok not-installed
+
+Package: boost-redis
+Version: 1.89.0
+Depends: boost-asio, boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-mp11, boost-system, boost-throw-exception
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f46e587337629f8cd6a6e35a75c9c3364115ce89b6238235c093af9e78ab7345
+Description: Boost redis module
+Status: purge ok not-installed
+
+Package: boost-rational
+Version: 1.89.0
+Depends: boost-assert, boost-cmake, boost-config, boost-core, boost-headers, boost-integer, boost-static-assert, boost-throw-exception, boost-type-traits, boost-utility
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 276991601eb821024c91cd6046836db54e02b8feeef331a874f009c6de79895d
+Description: Boost rational module
+Status: purge ok not-installed
+
+Package: boost-qvm
+Version: 1.89.0
+Depends: boost-cmake, boost-config, boost-headers
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d19f8c47508cb3f5a821b512d09192f7044f97c0c5ffd8221a9168df18144578
+Description: Boost qvm module
+Status: purge ok not-installed
+
+Package: vcpkg-cmake-get-vars
+Version: 2025-05-29
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a9ed93a27b262ada8fe0211be836f6d510a5ea3f675d202875d8c93c7b47c98b
+Status: purge ok not-installed
+
+Package: vcpkg-tool-meson
+Version: 1.9.0
+Port-Version: 3
+Depends: vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 731bc1da9e2037bde8ca1289b43ff1e51b1d25890167251a31856c573ca02c14
+Description: Meson build system
+Status: purge ok not-installed
+
+Package: pkgconf
+Version: 2.5.1
+Port-Version: 4
+Depends: vcpkg-tool-meson
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1faf1ca276dc50d322e663aed5d803d361ffb8d3250e53e0ed81c91d6cbf8e9b
+Description: pkgconf is a program which helps to configure compiler and linker flags for development libraries. It is similar to pkg-config from freedesktop.org.
+Status: purge ok not-installed
+
+Package: vcpkg-pkgconfig-get-modules
+Version: 2024-04-03
+Depends: pkgconf
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f8ffe5937baf9ec2cae98a6811d8819b21a1591bd773883510119a91db9596bf
+Status: purge ok not-installed
+
+Package: sqlite3
+Version: 3.50.4
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ac7efe94f343221acf2ca7bccaa637f02da5bf51b8b62b984ddb08515647b5c9
+Description: SQLite is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.
+Default-Features: json1
+Status: purge ok not-installed
+
+Package: sqlite3
+Feature: json1
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable JSON functionality for sqlite3
+Status: purge ok not-installed
+
+Package: openssl
+Version: 3.6.0
+Port-Version: 3
+Depends: vcpkg-cmake, vcpkg-cmake-config, vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: bf011425add9749b44eb83de6697cc856c31335a38fdb09d03d4f156f1264298
+Description: OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is also a general-purpose cryptography library.
+Status: purge ok not-installed
+
+Package: liblzma
+Version: 5.8.1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 3d5cbc76a234cc58fe7302a58cdc3e2a155999ea7b545f25cce3efad184f94ca
+Description: Compression library with an API similar to that of zlib.
+Status: purge ok not-installed
+
+Package: vcpkg-make
+Version: 2025-10-26
+Depends: vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 66418c7324a13d79ad6e80ad52a708d900d8482a9bf455ef1b65afefa0402bab
+Status: purge ok not-installed
 

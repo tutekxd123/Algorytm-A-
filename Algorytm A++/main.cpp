@@ -17,11 +17,11 @@ int main()
 		return 1;
 	}
 	//testsUnit::testBenchmark();
-	testsUnit::testBenchmarkMultiple();
+
 #endif // DEBUG
 	std::vector<int> test = { 1,2,3,4,5 };
 	reverse(test.begin(), test.end());
-
+	testsUnit::testBenchmarkMultiple();
 
 	return 0;
 }
