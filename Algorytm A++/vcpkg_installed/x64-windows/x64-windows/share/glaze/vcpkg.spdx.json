@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/glaze-x64-windows-6.0.1-f98c7791-fda4-46f6-8168-88ac35668ac1",
-  "name": "glaze:x64-windows@6.0.1 02dda5cd95e3b75de361f286bff7b9466592525e6282784120e2c8056962ba37",
+  "documentNamespace": "https://spdx.org/spdxdocs/glaze-x64-windows-6.0.1-e8fcefb5-0393-4ab2-aff8-a70a94cf07f5",
+  "name": "glaze:x64-windows@6.0.1 d9f72eb92def9f6b14049f9c1910edde2ed4fb23626e70898a08bfa4938832f9",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-2025-10-16-71538f2694db93da4668782d094768ba74c45991"
     ],
-    "created": "2025-11-06T22:49:10Z"
+    "created": "2025-11-20T21:52:25Z"
   },
   "relationships": [
     {
@@ -959,7 +959,7 @@
     {
       "name": "glaze:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "02dda5cd95e3b75de361f286bff7b9466592525e6282784120e2c8056962ba37",
+      "versionInfo": "d9f72eb92def9f6b14049f9c1910edde2ed4fb23626e70898a08bfa4938832f9",
       "downloadLocation": "NONE",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",

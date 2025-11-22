@@ -62,5 +62,49 @@ void testsUnit::testBenchmark()
 	auto ec3 = glz::read_file_json(benchmark, "./benchmarktest.json", std::string{});
 
 	auto obj = AstarPlusPlus();
-	obj.getWay(benchmark, 300, Point(0, 0), 0);
+	obj.getWay(benchmark, 8, Point(0, 0), 1);
+}
+
+std::mutex mtx;
+
+void testsUnit::testBenchmarkMultiple() {
+
+	std::vector<benchmark> benchmarks;
+	std::vector<std::future<void>> futures;
+	for (int maps = 500; maps < 1500; maps+=50) {
+		futures.push_back(std::async(std::launch::async, [maps, &benchmarks]() {
+			
+				//kwadratowe mapy
+		Graph benchmark = MakeGraph(maps, (int)(std::log(maps) * 1.5), 16, 16, 16, 16, 20);
+		size_t sizeofEdges=0;
+		for (auto& grid : benchmark.Grids) {
+			sizeofEdges += grid.Edges.size();
+		}
+		//int badmap = MakeBadData(benchmark);
+		int map = GenerateNumber(1, benchmark.Grids.size() - 1);
+		int selectmap = map == 0 ? 1 : 0;
+		auto bfs = AstarPlusPlus::GetAllPossibleBFS(benchmark);
+		const auto cache = AstarPlusPlus::GetAstarCache(benchmark);
+		std::unordered_map<std::tuple<int, Point, Point>, size_t, TupleHasher> emptycache;
+		auto obj2 = AstarPlusPlus();
+		auto obj3 = AstarPlusPlus();
+		auto obj = AstarPlusPlus();
+		auto verify = obj.getWay(benchmark, map,benchmark.Grids[map].getPoint(5,5), map == 0 ? 1 : 0);
+		auto verify2 = obj2.getWayOptimized(benchmark, map, Point(5, 5), map == 0 ? 1 : 0, bfs, emptycache);
+		auto verify3 = obj3.getWayOptimized(benchmark, map, Point(5, 5), map == 0 ? 1 : 0, bfs, cache);
+		if (verify.size() != verify2.size()) {
+			std::cout << "ERROR IN BENCHMARK SIZE MISMATCH NORMAL VS OPTIMIZED!\n";
+			obj.getWay(benchmark, map, benchmark.Grids[map].getPoint(5, 5), map == 0 ? 1 : 0);
+			obj2.getWayOptimized(benchmark, map, Point(5, 5), map == 0 ? 1 : 0, bfs, emptycache);
+		}
+		std::lock_guard<std::mutex> lock(mtx);
+		benchmarks.emplace_back(sizeofEdges, obj.lengthoperations,obj3.lengthoperations,obj2.lengthoperations, maps);
+			}));
+	}
+	for (auto& f : futures) {
+		f.get();
+	}
+	//Saving benchmarks to file using Glaze
+	auto ec = glz::write_file_json(benchmarks, "./benchmarksresults.json", std::string{});
+	return;
 }

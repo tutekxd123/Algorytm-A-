@@ -23,7 +23,6 @@ private:
 	HeapItem* arr;
 	int capacity;
 	int totalItems;
-	std::unordered_set<v,hash> setsofitems;
 	std::unordered_map<v, int, hash> valueToIndex;
 
 	void doubleCapacity()
@@ -45,17 +44,20 @@ private:
 			newArr[i] = this->arr[i];
 		}
 
+		// usuñ star¹ tablicê (delete[] bo to tablica)
 		if (this->arr != nullptr) {
-			delete this->arr;
+			delete[] this->arr;
 			this->lengthoperations += 1;
 		}
-			
 
 		this->capacity = newCapacity;
 		this->arr = newArr;
 		this->lengthoperations += 2;
 
-
+		// ODTWORZ mapê valueToIndex dla nowych indeksów
+		for (int i = 0; i < this->totalItems; ++i) {
+			this->valueToIndex[this->arr[i].value] = i;
+		}
 	}
 
 	void shiftUp(int index)
@@ -78,10 +80,11 @@ private:
 		return;
 	}
 	void swapItems(int index1, int index2) {
-		this->valueToIndex[this->arr[index1].value] = index2;
-		this->valueToIndex[this->arr[index2].value] = index1;
+		if (index1 == index2) return;
 		std::swap(this->arr[index1], this->arr[index2]);
-		this->lengthoperations += 5; //Swap = 3;
+		this->valueToIndex[this->arr[index1].value] = index1;
+		this->valueToIndex[this->arr[index2].value] = index2;
+		this->lengthoperations += 5;
 	}
 	void shiftDown(int index)
 	{
@@ -120,6 +123,7 @@ private:
 
 public:
 	int lengthoperations = 0;
+	std::unordered_set<v, hash> setsofitems;
 	MinHeap()
 	{
 		this->arr = nullptr;
@@ -174,13 +178,15 @@ public:
 	void deleteMin()
 	{
 		assert(totalItems != 0);
-		this->setsofitems.erase(this->arr[0].value);
-		this->valueToIndex.erase(this->arr[0].value);
-		std::swap(arr[0], arr[this->totalItems - 1]); //wyjatek
+		auto removedValue = this->arr[0].value;
+		swapItems(0, totalItems - 1);
 		totalItems--;
-		this->lengthoperations += 7; //swap = 3
-		//shift down
-		shiftDown(0);
+		this->setsofitems.erase(removedValue);
+		this->valueToIndex.erase(removedValue);
+
+		this->lengthoperations += 7;
+		if (totalItems > 0)
+			shiftDown(0);
 	}
 
 	bool isEmpty()

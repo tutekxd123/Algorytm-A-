@@ -3,7 +3,7 @@
 
 
 //std::vector<AstarPlusPlusNode> getNeighbors(const std::vector<AstarPlusPlusNode>&AllNodes,const AstarPlusPlusNode* currentNode, const Graph& graph);
-std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNeighbors(std::vector<AstarPlusPlusNode>& AllNodes, const AstarPlusPlusNode* currentNode, const Graph& graph)
+std::vector<std::tuple<AstarPlusPlusNode*, size_t, Point>> AstarPlusPlus::getNeighbors(std::deque<AstarPlusPlusNode>& AllNodes, const AstarPlusPlusNode* currentNode, const Graph& graph)
 {
 
 	std::vector<std::tuple<AstarPlusPlusNode*,size_t,Point>> result;
@@ -33,7 +33,6 @@ std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph& graph, AstarPlusP
 	std::vector<Point>Wynik;
 	std::vector<int>Grupy;
 	AstarGrid AstarObj = AstarGrid();
-	int lastconnected = 0;
 	this->lengthoperations += 3;
 	while (currentNode->parent != nullptr) {
 		Grupy.emplace_back(currentNode->grid->id);
@@ -50,16 +49,17 @@ std::vector<Point> AstarPlusPlus::ReconstructPath(const Graph& graph, AstarPlusP
 		this->lengthoperations += 6;
 		for (const auto& node : droga) {
 			this->lengthoperations += 1;
-			Wynik.emplace_back(node);
+			mindistance = static_cast<int>(astarCacheItem.second); //miedzy krawedziami to jest z Cache ale jeszcze sprawdzmy miedzy Startem a edges :D(duza zlozonosc?
 		}
 		CurrentPoint = edge.Grid2Point;
 	}
 	return Wynik;
 }
 
+
 std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel, const Point& StartPoint, int GrupaWezlowStart)
 {
-	//Zmiana podejscia robimy Graph konwersje na NodeAstarPlusPlus zeby latwiej zarz�dzac w reconstruct Path
+	//Zmiana podejscia robimy Graph konwersje na NodeAstarPlusPlus zeby latwiej zarz¹dzac w reconstruct Path
 	if (graph.Grids.size() <= GrupaWezlowStart || graph.Grids.size() <= GrupaWezlowCel)
 	{
 		this->lengthoperations += 4;
@@ -67,13 +67,15 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 	}
 	this->lengthoperations += 2;
 	//Okay Create Vector?
-	std::vector<AstarPlusPlusNode> allNodes;
+	std::deque<AstarPlusPlusNode> allNodes;
 	MinHeap<std::tuple<int,Point,int>, AstarPlusPlusNode*, NodeHasherPTR> OpenSet;
 
 	//Zmiana na MiniHeap
 	std::unordered_set<AstarPlusPlusNode*, NodeHasherPTR> ClosedSet;
-	allNodes.reserve(10000);
+	//allNodes.reserve(10000);
 	this->lengthoperations += 4;
+	//NieUwzgledniam Kopiowania punktow jako iloæ kroków spowodu ze w samym algorytmie nie sa liczone jako krok!
+	//W algorytmie mamy gotowe punkty do uzycia(GRAF)
 	for (const auto& grid : graph.Grids) {
 		auto node = AstarPlusPlusNode(&grid);
 		if (grid.id == GrupaWezlowStart) {
@@ -81,17 +83,16 @@ std::vector<Point> AstarPlusPlus::getWay(const Graph& graph, int GrupaWezlowCel,
 			node.gCost = 0;
 			allNodes.emplace_back(node);
 			OpenSet.insert(std::make_tuple(node.grid->id, node.point, 0), &allNodes.back());
-			this->lengthoperations += 7;
+			//this->lengthoperations += 7;
 		}
 		else {
-			this->lengthoperations += 2;
+			//this->lengthoperations += 2;
 			allNodes.emplace_back(&grid);
 		}
 	}
 	while (!OpenSet.isEmpty()) {
 		AstarPlusPlusNode* current;
 		OpenSet.getMin(current);
-
 		ClosedSet.insert(current);
 		OpenSet.deleteMin();
 		this->lengthoperations += 2;
